@@ -1,6 +1,6 @@
-module github.com/davidvossel/rhcos-console-debugger
+module github.com/hypershift-community/kubevirt-console-logger
 
-go 1.21.6
+go 1.26
 
 require (
 	github.com/gorilla/websocket v1.5.0
@@ -97,5 +97,4 @@ replace (
 	k8s.io/sample-apiserver => k8s.io/sample-apiserver v0.26.4
 	k8s.io/sample-cli-plugin => k8s.io/sample-cli-plugin v0.26.4
 	k8s.io/sample-controller => k8s.io/sample-controller v0.26.4
-
 )
