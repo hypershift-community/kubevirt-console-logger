@@ -12,6 +12,7 @@ import (
 	"golang.org/x/crypto/ssh/terminal"
 
 	"kubevirt.io/client-go/kubecli"
+	kvcorev1 "kubevirt.io/client-go/kubevirt/typed/core/v1"
 )
 
 func attachConsole(stdinReader, stdoutReader *io.PipeReader,
@@ -161,7 +162,7 @@ func run(args []string) error {
 	signal.Notify(waitInterrupt, os.Interrupt)
 
 	go func() {
-		con, err := virtCli.VirtualMachineInstance(namespace).SerialConsole(vmi, &kubecli.SerialConsoleOptions{ConnectionTimeout: time.Duration(timeout) * time.Minute})
+		con, err := virtCli.VirtualMachineInstance(namespace).SerialConsole(vmi, &kvcorev1.SerialConsoleOptions{ConnectionTimeout: time.Duration(timeout) * time.Minute})
 		runningChan <- err
 
 		if err != nil {
@@ -169,7 +170,7 @@ func run(args []string) error {
 			return
 		}
 
-		resChan <- con.Stream(kubecli.StreamOptions{
+		resChan <- con.Stream(kvcorev1.StreamOptions{
 			In:  stdinReader,
 			Out: stdoutWriter,
 		})
