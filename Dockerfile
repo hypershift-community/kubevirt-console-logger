@@ -1,7 +1,7 @@
-FROM quay.io/fedora/fedora:38
+FROM registry.access.redhat.com/ubi9:latest
 
 RUN cd /usr/bin && \
-	curl -L https://github.com/kubevirt/kubevirt/releases/download/v0.59.0/virtctl-v0.59.0-linux-amd64 --output virtctl && \
+	curl -L https://github.com/kubevirt/kubevirt/releases/download/v1.9.0/virtctl-v1.9.0-linux-amd64 --output virtctl && \
 	chmod 755 virtctl && \
 	curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
 	chmod 755 kubectl && \

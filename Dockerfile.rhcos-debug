@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.4
 
-ARG builder_image=golang:1.21
+ARG builder_image=registry.ci.openshift.org/openshift/release:rhel-9-release-golang-1.26-openshift-5.1
 FROM ${builder_image} as builder
 WORKDIR /workspace
 
@@ -16,7 +16,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=${ARCH} \
     go build -a -ldflags "${ldflags} -extldflags '-static'"  .
 
 # Production image
-FROM quay.io/fedora/fedora:38
+FROM registry.access.redhat.com/ubi9:latest
 
 RUN cd /usr/bin && \
 	curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" && \
